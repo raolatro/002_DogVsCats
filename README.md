@@ -1,8 +1,8 @@
 # Dog VS Cats
+![Dog VS Cats Header](src/img/game_header.png)
+
 
 [![Download for macOS](https://raoni.studio/games/dog-vs-cats/img/button-macOS.png)](https://raoni.studio/games/dog-vs-cats/download/DogVsCats-1_0_2.zip)
-
-![Dog VS Cats Header](src/img/game_header.png)
 
 ## Bark & Chase!
 
