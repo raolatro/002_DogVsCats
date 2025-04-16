@@ -1,5 +1,7 @@
 # Dog VS Cats
 
+[![Download for macOS](https://raoni.studio/games/dog-vs-cats/img/button-macOS.png)](https://raoni.studio/games/dog-vs-cats/download/DogVsCats-1_0_2.zip)
+
 ![Dog VS Cats Header](src/img/game_header.png)
 
 ## Bark & Chase!
@@ -34,3 +36,7 @@ Help your courageous dog protect his yard from mischievous cats sneaking in from
 ## Author
 
 Made with passion by [Raoni Lima](https://raoni.studio)
+
+---
+
+> _This is a test project for research and educational purposes only. There is no intention of making commercial gains._
