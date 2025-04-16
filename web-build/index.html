@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Dog VS Cats - Web</title>
+  <meta name="description" content="Dog VS Cats: Play the game instantly in your browser!">
+  <link rel="icon" type="image/png" href="src/img/game_header.png">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #2e5c2e;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      text-align: center;
+    }
+    #canvas-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 90vh;
+    }
+    canvas {
+      width: 100vw;
+      max-width: 600px;
+      height: 70vw;
+      max-height: 80vh;
+      background: #000;
+      border-radius: 16px;
+      box-shadow: 0 2px 24px #000a;
+      touch-action: none;
+    }
+    .instructions {
+      margin: 16px auto 0 auto;
+      font-size: 1.1em;
+      background: rgba(0,0,0,0.5);
+      padding: 12px 20px;
+      border-radius: 12px;
+      max-width: 450px;
+    }
+    .branding {
+      margin-top: 16px;
+      margin-bottom: 12px;
+    }
+    .branding img {
+      width: 220px;
+      max-width: 90vw;
+      image-rendering: pixelated;
+    }
+    .disclaimer {
+      margin: 30px auto 10px auto;
+      color: #bbb;
+      font-size: 0.95em;
+      max-width: 500px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      padding: 10px 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="branding">
+    <img src="src/img/game_header.png" alt="Dog VS Cats">
+  </div>
+  <div class="instructions">
+    <b>Tip:</b> For best experience, rotate your device to landscape. <br>
+    <b>Touch:</b> Tap the screen to bark!<br>
+    <b>Move:</b> Drag your finger to patrol.<br>
+  </div>
+  <div id="canvas-container">
+    <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+  </div>
+  <div class="disclaimer">
+    This is a test project for research and educational purposes only. There is no intention of making commercial gains.
+  </div>
+  <script src="love.js"></script>
+  <script>
+    // love.js will handle loading game.love automatically
+    // Mobile resize fix
+    function resizeCanvas() {
+      var canvas = document.getElementById('canvas');
+      if (canvas) {
+        var w = Math.min(window.innerWidth, 600);
+        var h = Math.min(window.innerHeight * 0.8, w * 0.7);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', resizeCanvas);
+    window.onload = resizeCanvas;
+  </script>
+</body>
+</html>

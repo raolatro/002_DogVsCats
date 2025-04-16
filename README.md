@@ -33,4 +33,8 @@ This is a test project for research and educational purposes only. There is no i
 >
 >
 > 
-[![Download for macOS](https://raoni.studio/games/dog-vs-cats/img/button-macOS.png)](https://raoni.studio/games/dog-vs-cats/download/DogVsCats-1_0_2.zip)
+## Play & Download on Itch.io
+
+[![Play on Itch.io](https://static.itch.io/images/itchio-textless-black.svg)](https://raolatro.itch.io/dog-vs-cats)
+
+[Dog Vs Cats on Itch.io](https://raolatro.itch.io/dog-vs-cats)

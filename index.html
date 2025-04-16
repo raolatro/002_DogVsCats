@@ -51,6 +51,25 @@
       vertical-align: middle;
       /* No background, border, or shadow, use natural size */
     }
+    .buttons-footer {
+      max-width: 540px;
+      margin: 32px auto 18px auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+    }
+    .buttons-footer a img {
+      display: block;
+      width: 180px;
+      max-width: 45vw;
+      height: auto;
+      padding: 0 8px;
+      transition: transform 0.1s;
+    }
+    .buttons-footer a img:hover {
+      transform: scale(1.05);
+    }
     .credentials {
       margin: 54px auto 24px auto;
       font-family: 'Press Start 2P', 'Courier New', monospace;
@@ -65,11 +84,14 @@
   <div class="header">
     <img src="https://raoni.studio/games/dog-vs-cats/img/game_header.png" alt="DogVsCats Game Title">
   </div>
-  <div style="margin: 32px auto 18px auto;">
-    <a href="https://raoni.studio/games/dog-vs-cats/download/DogVsCats-1_0_2.zip" target="_blank">
-      <img src="https://raoni.studio/games/dog-vs-cats/img/button-macOS.png" alt="Download for macOS" style="width: 220px; max-width: 80vw; margin: 0 auto 18px auto; display: block;">
-    </a>
+  <div class="buttons-footer">
+    <a href="https://medium.com/@raolatro/devlog-002-dog-vs-cats-from-idea-to-itch-io-in-under-12-hours-e76d5c80d337" target="_blank"><img src="https://raoni.studio/games/dog-vs-cats/img/button-read_devlog.png" alt="Read the Devlog"></a>
+    <a href="https://github.com/raolatro/002_DogVsCats" target="_blank"><img src="https://raoni.studio/games/dog-vs-cats/img/button-github.png" alt="GitHub"></a>
   </div>
+  <div style="margin: 32px auto 18px auto;">
+    <iframe frameborder="0" src="https://itch.io/embed/3478664?dark=true" width="552" height="167"><a href="https://raolatro.itch.io/dog-vs-cats">Dog Vs Cats by RaoLatro</a></iframe>
+  </div>
+
   <div class="summary">
     <p>
       <b>Bark & Chase!</b><br><br>
@@ -84,11 +106,6 @@
         <li>Check your time and aim to set a new personal best!</li>
       </ol>
     </p>
-  </div>
-  <div style="margin: 32px auto 18px auto;">
-    <a href="https://raoni.studio/games/dog-vs-cats/download/DogVsCats-1_0_2.zip" target="_blank">
-      <img src="https://raoni.studio/games/dog-vs-cats/img/button-macOS.png" alt="Download for macOS" style="width: 220px; max-width: 80vw; margin: 0 auto 18px auto; display: block;">
-    </a>
   </div>
   <div class="assets">
     <img src="https://raoni.studio/games/dog-vs-cats/img/dog.png" alt="Dog">
