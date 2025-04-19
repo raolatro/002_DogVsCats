@@ -1,4 +1,5 @@
 -- Music and SFX volume variables are in scripts/audio.lua
+local settings = require("scripts.settings")
 local dog = require("scripts.dog")
 local enemy = require("scripts.enemy")
 local debug_mod = require("scripts.debug")
@@ -9,34 +10,33 @@ function debug_print(msg)
     debug_mod.print(msg)
 end
 
-local NUM_ENEMIES = 10 -- Easy control: change this to set how many enemies spawn (and are required to win)
 local enemies = {}
 local window_width, window_height
 local game_state = "play"
 local game_timer = 0
 local final_time = nil
 
--- UI ELEMENT POSITIONS
-local stats_box_x = 80
-local stats_box_y = 80
-local stats_box_w = 320
-local stats_box_h = 98
-local stats_text_margin = 5
+-- UI ELEMENT POSITIONS (from settings)
+local stats_box_x = settings.UI_STATS_BOX_X
+local stats_box_y = settings.UI_STATS_BOX_Y
+local stats_box_w = settings.UI_STATS_BOX_W
+local stats_box_h = settings.UI_STATS_BOX_H
+local stats_text_margin = settings.UI_STATS_TEXT_MARGIN
 
--- WIN PAGE ANIMATION SETTINGS
-local WIN_TRANSITION_TIME = 1.0 -- seconds
-local WIN_OVERLAY_COLOR = {0,0,0,0.7} -- 70% black
-local SCORE_FADE_COLOR = {1,1,1,1} -- white, alpha controlled
-local FINAL_SCORE_BG = {0.13, 0.36, 0.86, 0.97} -- blue
-local FINAL_SCORE_SHADOW = {0.05, 0.10, 0.23, 0.55} -- dark blue
-local FINAL_SCORE_PADDING = 44
-local FINAL_SCORE_FONT_SIZE = 62
-local FINAL_SCORE_NUMBER_SHADOW = {0.08,0.14,0.22,0.85}
-local FINAL_SCORE_NUMBER_COLOR = {1,1,1,1}
-local WIN_SCORE_TEXT_COLOR = {1,1,1,1}
-local WIN_SCORE_TEXT_SHADOW = {0,0,0,0}
+-- WIN PAGE ANIMATION SETTINGS (from settings)
+local WIN_TRANSITION_TIME = settings.WIN_TRANSITION_TIME
+local WIN_OVERLAY_COLOR = settings.WIN_OVERLAY_COLOR
+local SCORE_FADE_COLOR = settings.SCORE_FADE_COLOR
+local FINAL_SCORE_BG = settings.FINAL_SCORE_BG
+local FINAL_SCORE_SHADOW = settings.FINAL_SCORE_SHADOW
+local FINAL_SCORE_PADDING = settings.FINAL_SCORE_PADDING
+local FINAL_SCORE_FONT_SIZE = settings.FINAL_SCORE_FONT_SIZE
+local FINAL_SCORE_NUMBER_SHADOW = settings.FINAL_SCORE_NUMBER_SHADOW
+local FINAL_SCORE_NUMBER_COLOR = settings.FINAL_SCORE_NUMBER_COLOR
+local WIN_SCORE_TEXT_COLOR = settings.WIN_SCORE_TEXT_COLOR
+local WIN_SCORE_TEXT_SHADOW = settings.WIN_SCORE_TEXT_SHADOW
 local win_transition = 0 -- 0..1
-local KILL_TEXT = "Gotcha!"
+local KILL_TEXT = settings.KILL_TEXT
 -- Leaderboard: list of {time, score}
 local leaderboard = {}
 function add_leaderboard_entry(time, score)
@@ -49,7 +49,7 @@ function reset_game()
     debug_print("[reset_game] Game reset, spawning enemies and resetting dog.")
     enemies = {}
     math.randomseed(os.time())
-    for i = 1, NUM_ENEMIES do
+    for i = 1, settings.NUM_ENEMIES do
         local x = math.random(60, window_width-60)
         local y = math.random(60, window_height-60)
         table.insert(enemies, enemy.new(x, y))
@@ -232,7 +232,7 @@ function love.draw()
     -- Scoreboard fades out on win
     local stats_alpha = 1 - win_transition
     local stats_text_margin = 14
-    local enemies_left_str = "Enemies left: " .. count_remaining_enemies() .. "/" .. NUM_ENEMIES
+    local enemies_left_str = "Enemies left: " .. count_remaining_enemies() .. "/" .. settings.NUM_ENEMIES
     local timer_str = "Time: " .. tostring(math.floor(game_timer)) .. " sec"
     if stats_alpha > 0.01 then
         love.graphics.setColor(0,0,0,0.80 * stats_alpha)

@@ -1,9 +1,10 @@
 -- scenery.lua: handles grass background tile logic
+local settings = require("scripts.settings")
 local scenery = {}
 
-local TILE_SIZE = 48
+local TILE_SIZE = settings.SCENERY_TILE_SIZE
 local grass_images = {}
-local grass_count = 6
+local grass_count = settings.SCENERY_GRASS_COUNT
 local grid = {}
 local grid_width, grid_height
 

@@ -1,23 +1,23 @@
 -- enemy.lua: enemy logic
+local settings = require("scripts.settings")
 local utils = require("scripts.utils")
 local enemy_anim = require("scripts.enemy_anim")
-
-ENEMIES_ALWAYS_VISIBLE = true -- Set to true to make all enemies visible everywhere
-ENEMIES_IDLE_DURATION_MAX = 2.0 -- seconds
 
 local enemy = {}
 enemy.__index = enemy
 
-local SPRITE_SIZE = 48
-local IDLE_FRAMES = 4
-local ATTACK_FRAMES = 4
-local DEATH_FRAMES = 4
-local WALK_FRAMES = 4
-local WALK_DISTANCE = 100
-local WALK_SPEED = 150 -- px/sec
-CAT_CHASE_SPEED = 60 -- px/sec (global for easy adjustment)
-local FLEE_DIFFICULTY = 0.5 -- Multiplier for flee speed
-local FLEE_SPEED = FLEE_DIFFICULTY * WALK_SPEED
+local SPRITE_SIZE = settings.ENEMY_SPRITE_SIZE
+local IDLE_FRAMES = settings.ENEMY_IDLE_FRAMES
+local ATTACK_FRAMES = settings.ENEMY_ATTACK_FRAMES
+local DEATH_FRAMES = settings.ENEMY_DEATH_FRAMES
+local WALK_FRAMES = settings.ENEMY_WALK_FRAMES
+local WALK_DISTANCE = settings.ENEMY_WALK_DISTANCE
+local WALK_SPEED = settings.ENEMY_WALK_SPEED
+local CAT_CHASE_SPEED = settings.ENEMY_CAT_CHASE_SPEED
+local FLEE_DIFFICULTY = settings.ENEMY_FLEE_DIFFICULTY
+local FLEE_SPEED = settings.ENEMY_FLEE_SPEED
+local ENEMIES_ALWAYS_VISIBLE = settings.ENEMIES_ALWAYS_VISIBLE
+local ENEMIES_IDLE_DURATION_MAX = settings.ENEMIES_IDLE_DURATION_MAX
 
 function enemy.new(x, y, radius)
     local self = setmetatable({}, enemy)
@@ -28,10 +28,10 @@ function enemy.new(x, y, radius)
     self.visible = false
     self.death_timer = 0
     self.state = "idle" -- idle, walk_left, walk_right, dying, dead, dead_hold, dead_fade, gone
-    self.anim_idle = enemy_anim.new("src/sprites/enemy_idle.png", IDLE_FRAMES, 0.2)
-    self.anim_attack = enemy_anim.new("src/sprites/enemy_attack.png", ATTACK_FRAMES, 0.12)
-    self.anim_walk = enemy_anim.new("src/sprites/enemy_walk.png", WALK_FRAMES, 0.075)
-    self.anim_death = enemy_anim.new("src/sprites/enemy_death.png", DEATH_FRAMES, 0.10)
+    self.anim_idle = enemy_anim.new(settings.SPRITE_ENEMY_IDLE, IDLE_FRAMES, settings.ENEMY_IDLE_FRAME_TIME)
+    self.anim_attack = enemy_anim.new(settings.SPRITE_ENEMY_ATTACK, ATTACK_FRAMES, settings.ENEMY_ATTACK_FRAME_TIME)
+    self.anim_walk = enemy_anim.new(settings.SPRITE_ENEMY_WALK, WALK_FRAMES, settings.ENEMY_WALK_FRAME_TIME)
+    self.anim_death = enemy_anim.new(settings.SPRITE_ENEMY_DEATH, DEATH_FRAMES, settings.ENEMY_DEATH_FRAME_TIME)
     -- Randomly flip enemy at spawn (50/50)
     if math.random() < 0.5 then
         self.flip = true

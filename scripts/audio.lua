@@ -1,37 +1,27 @@
 -- audio.lua: Background music and SFX control for Dog VS Cats
+local settings = require("scripts.settings")
 local audio = {}
 
--- Master and per-stem volumes (default: not too loud)
-audio.MASTER_MUSIC_VOLUME = 0.35
+-- Master and per-stem volumes from settings
+audio.MASTER_MUSIC_VOLUME = settings.AUDIO_MASTER_MUSIC_VOLUME
 
--- Individual music stem volumes
-audio.BASS_VOLUME      = 0.55
+audio.BASS_VOLUME      = settings.AUDIO_BASS_VOLUME
 
-audio.DRUMS_VOLUME     = 0.48
+audio.DRUMS_VOLUME     = settings.AUDIO_DRUMS_VOLUME
 
-audio.GUITARS_VOLUME   = 0.42
+audio.GUITARS_VOLUME   = settings.AUDIO_GUITARS_VOLUME
 
-audio.MELODY_VOLUME    = 0.35
+audio.MELODY_VOLUME    = settings.AUDIO_MELODY_VOLUME
 
-audio.OTHER_VOLUME     = 0.30
+audio.OTHER_VOLUME     = settings.AUDIO_OTHER_VOLUME
 
-audio.WOODWINDS_VOLUME = 0.30
+audio.WOODWINDS_VOLUME = settings.AUDIO_WOODWINDS_VOLUME
 
--- Sound Effects volumes (for later)
-audio.SFX_MASTER_VOLUME = 0.4
--- Add more SFX volumes as needed, e.g.:
--- audio.SFX_POPUP_VOLUME = 0.5
+audio.SFX_MASTER_VOLUME = settings.AUDIO_SFX_MASTER_VOLUME
 
 -- Internal handles for sources
 local music_sources = {}
-local music_paths = {
-    bass      = "src/music/1/bass.mp3",
-    drums     = "src/music/1/drums.mp3",
-    guitars   = "src/music/1/guitars.mp3",
-    melody    = "src/music/1/melody.mp3",
-    other     = "src/music/1/other.mp3",
-    woodwinds = "src/music/1/woodwinds.mp3"
-}
+local music_paths = settings.AUDIO_MUSIC_PATHS
 local music_volumes = {
     bass      = function() return audio.BASS_VOLUME end,
     drums     = function() return audio.DRUMS_VOLUME end,

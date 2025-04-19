@@ -1,48 +1,39 @@
+local settings = require("scripts.settings")
 local anim = require("scripts.anim")
 local dog = {}
 
-dog.x = 400
-dog.y = 300
-dog.prev_x = 400
-dog.prev_y = 300
-dog.flee_range = 200 -- Controls cat fleeing/speed, starts large
+dog.x = settings.DOG_START_X
+dog.y = settings.DOG_START_Y
+dog.prev_x = settings.DOG_START_X
+dog.prev_y = settings.DOG_START_Y
+dog.flee_range = settings.DOG_INIT_FLEE_RANGE -- Controls cat fleeing/speed, starts large
+dog.smell_range = settings.DOG_INIT_SMELL_RANGE -- Controls opacity, starts small
 
-dog.smell_range = 40 -- Controls opacity, starts small
-
-NUM_ENEMIES = 5
-dog.MIN_FLEE_RANGE = 100
-DOG_FLEE_RANGE_SHRINK_STEP = (200-20)/(NUM_ENEMIES-1) -- Shrinks per kill
-
-dog.MAX_SMELL_RANGE = 200
-DOG_SMELL_RANGE_GROW_STEP = (200-40)/(NUM_ENEMIES-1) -- Grows per kill
-
+dog.MIN_FLEE_RANGE = settings.DOG_MIN_FLEE_RANGE
+dog.MAX_SMELL_RANGE = settings.DOG_MAX_SMELL_RANGE
+dog.MAX_FLEE_RANGE = settings.DOG_MAX_FLEE_RANGE
+dog.FLEE_RANGE_SHRINK_STEP = settings.DOG_FLEE_RANGE_SHRINK_STEP
+dog.SMELL_RANGE_GROW_STEP = settings.DOG_SMELL_RANGE_GROW_STEP
 
 dog.state = "idle" -- idle, walking, attacking
 dog.potty_timer = 0
 
-dog.radius = 22 -- radius of the animated dog dot
+dog.radius = settings.DOG_RADIUS -- radius of the animated dog dot
 
 dog.animations = {}
-dog.sprite_offset = 24 -- half of 48 (sprite is 48x48)
+dog.sprite_offset = settings.DOG_SPRITE_OFFSET -- half of 48 (sprite is 48x48)
 dog.facing_left = false -- true if last movement was to the left
 
-dog.colors = {
-    idle = {0.3, 0.6, 1.0, 1},      -- blue
-    walking = {0.1, 0.8, 0.2, 1},   -- green
-    attacking = {0.8, 0.3, 0.1, 1},  -- orange/red
-}
-
-dog.smell_color = {0.8, 0.6, 0.2, 0.08} -- more faded smell circle
-
-dog.mouse_stationary_threshold = 2 -- pixels
-
-dog.ATTACK_DURATION = 1 -- seconds
+dog.colors = settings.DOG_COLORS
+dog.smell_color = settings.DOG_SMELL_COLOR -- more faded smell circle
+dog.mouse_stationary_threshold = settings.DOG_MOUSE_STATIONARY_THRESHOLD -- pixels
+dog.ATTACK_DURATION = settings.DOG_ATTACK_DURATION -- seconds
 
 function dog:load()
     -- Load animations (4 frames, 48x48)
-    local idle_img = love.graphics.newImage("src/sprites/dog_idle.png")
-    local walk_img = love.graphics.newImage("src/sprites/dog_walk.png")
-    local attack_img = love.graphics.newImage("src/sprites/dog_attack.png")
+    local idle_img = love.graphics.newImage(settings.SPRITE_DOG_IDLE)
+    local walk_img = love.graphics.newImage(settings.SPRITE_DOG_WALK)
+    local attack_img = love.graphics.newImage(settings.SPRITE_DOG_ATTACK)
     self.animations.idle = anim.new(idle_img, 48, 48, 4, 0.18)
     self.animations.walking = anim.new(walk_img, 48, 48, 4, 0.13)
     self.animations.attacking = anim.new(attack_img, 48, 48, 4, 0.18)
@@ -72,8 +63,12 @@ function dog:update(mouse_x, mouse_y, dt)
             self.state = "walking"
         end
     end
-    -- Track facing direction
-    self.facing_left = (mouse_x < self.x)
+    -- Track facing direction based on mouse movement
+    if mouse_x < self.prev_x then
+        self.facing_left = true
+    elseif mouse_x > self.prev_x then
+        self.facing_left = false
+    end
     self.prev_x = self.x
     self.prev_y = self.y
     self.x = mouse_x
@@ -90,11 +85,11 @@ function dog:trigger_potty()
 end
 
 function dog:increase_flee_range()
-    self.flee_range = math.max(self.MIN_FLEE_RANGE, self.flee_range - DOG_FLEE_RANGE_SHRINK_STEP)
+    self.flee_range = math.max(self.MIN_FLEE_RANGE, self.flee_range - settings.DOG_FLEE_RANGE_SHRINK_STEP)
 end
 
 function dog:increase_smell_range()
-    self.smell_range = math.min(self.MAX_SMELL_RANGE, self.smell_range + DOG_SMELL_RANGE_GROW_STEP)
+    self.smell_range = math.min(self.MAX_SMELL_RANGE, self.smell_range + settings.DOG_SMELL_RANGE_GROW_STEP)
     self:trigger_smell_flash()
 end
 

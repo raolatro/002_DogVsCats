@@ -1,19 +1,20 @@
 -- SFX System for DogPoo Game
 -- Handles background and event SFX with scalable, controllable volumes
 
+local settings = require("scripts.settings")
 local sfx = {}
 
 -- Volume Controls
-sfx.BKG_VOLUME = 0.6 -- Main SFX background layer
-sfx.DOG_HIT_VOLUME = 0.8 -- Dog bark volume
-sfx.CAT_DEAD_VOLUME = 0.7 -- Cat dead volume
-sfx.EVENTS_MASTER_VOLUME = 1.0 -- Master volume for all event SFX
+sfx.BKG_VOLUME = settings.SFX_BKG_VOLUME -- Main SFX background layer
+sfx.DOG_HIT_VOLUME = settings.SFX_DOG_HIT_VOLUME -- Dog bark volume
+sfx.CAT_DEAD_VOLUME = settings.SFX_CAT_DEAD_VOLUME -- Cat dead volume
+sfx.EVENTS_MASTER_VOLUME = settings.SFX_EVENTS_MASTER_VOLUME -- Master volume for all event SFX
 
 -- Background SFX (looping stems)
-sfx.bkg_stems = {
-    love.audio.newSource("src/sfx/bkg/dog_growling1.mp3", "static"),
-    love.audio.newSource("src/sfx/bkg/cats_purring1.mp3", "static"),
-}
+sfx.bkg_stems = {}
+for _, path in ipairs(settings.AUDIO_SFX_BKG_PATHS) do
+    table.insert(sfx.bkg_stems, love.audio.newSource(path, "static"))
+end
 sfx.bkg_index = 1
 
 function sfx.play_next_bkg()
@@ -43,10 +44,10 @@ function sfx.stop_bkg()
 end
 
 -- Event SFX
-sfx.cat_dead = love.audio.newSource("src/sfx/cats/dead1.mp3", "static")
+sfx.cat_dead = love.audio.newSource(settings.AUDIO_SFX_CAT_DEAD_PATH, "static")
 sfx.dog_barks = {}
-for i=1,6 do
-    sfx.dog_barks[i] = love.audio.newSource(string.format("src/sfx/dog/bark%d.mp3", i), "static")
+for _, path in ipairs(settings.AUDIO_SFX_DOG_BARK_PATHS) do
+    table.insert(sfx.dog_barks, love.audio.newSource(path, "static"))
 end
 
 function sfx.play_cat_dead()

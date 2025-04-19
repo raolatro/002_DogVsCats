@@ -1,9 +1,10 @@
 -- debug.lua: simple debug overlay system
+local settings = require("scripts.settings")
 local debug_mod = {}
 
-DEBUG_ENABLED = false -- Global toggle for debug overlay
+local DEBUG_ENABLED = settings.DEBUG_ENABLED -- Global toggle for debug overlay
 
-local max_lines = 32
+local max_lines = settings.DEBUG_MAX_LINES
 local debug_lines = {}
 local debug_font = love.graphics.newFont(10)
 debug_font:setFilter('nearest', 'nearest')
